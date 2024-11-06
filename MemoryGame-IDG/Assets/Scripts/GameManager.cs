@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         // Initialize UI and variables
         titleText.text = "MEM♦RY G♠ME";
         attemptsCount = 0;
-        attemptsText.text = "Attempts: " + attemptsCount;
+        attemptsText.text = "♠ttempts: " + attemptsCount;
 
         // Load the best time from PlayerPrefs
         int bestTime = PlayerPrefs.GetInt("BestScore", int.MaxValue);
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        
         // Timer for the game
         if (isGameStarted)
         {
@@ -142,7 +143,7 @@ public class GameManager : MonoBehaviour
                 selectedCards[0].GetComponent<CardScript>().HideCardFace();
                 selectedCards[1].GetComponent<CardScript>().HideCardFace();
                 attemptsCount += 1;
-                attemptsText.text = "Attempts: " + attemptsCount;
+                attemptsText.text = "♠ttempts: " + attemptsCount;
                 audioSource.PlayOneShot(failureClip);
                 ResetSelectedCards(12);
             }
@@ -191,6 +192,7 @@ public class GameManager : MonoBehaviour
 
     void OnStartButtonClicked()
     {
+        audioSource.Stop();
         audioSource.clip = backgroundMusic;  
         audioSource.Play();
         audioSource.loop = true; 
@@ -199,7 +201,7 @@ public class GameManager : MonoBehaviour
         isGameStarted = true;
         titleText.text = "";
         attemptsCount = 0;
-        attemptsText.text = "Attempts: " + attemptsCount;
+        attemptsText.text = "♠ttempts: " + attemptsCount;
 
         mainPanel.SetActive(false);
 
@@ -235,7 +237,7 @@ public class GameManager : MonoBehaviour
         totalTime = 0;
         timeText.text = "Time: " + 0;
         attemptsCount = 0;
-        attemptsText.text = "Attempts: " + attemptsCount;
+        attemptsText.text = "♠ttempts: " + attemptsCount;
         titleText.text = "MEM♦RY G♠ME";
         
         // Handle game panel visibility
