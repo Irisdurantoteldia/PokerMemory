@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour
         cards = GameObject.FindGameObjectsWithTag("CardTag");
         cardChildren = GameObject.FindGameObjectsWithTag("CardTagChild");
 
+        audioSource.clip = endGameClip;
+        audioSource.loop = true; // Make sure it loops
+        audioSource.Play(); // Start playing the music
+
         audioSource.loop = true; 
     }
 
