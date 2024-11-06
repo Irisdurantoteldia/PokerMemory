@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CardScript : MonoBehaviour
 {
-    public GameObject cardFace; // Previously 'figure'
-    private GameObject gameController; // Previously 'gameManager' and 'gm'
-    private int cardIdentifier; // Previously 'cardId' or 'id'
-    public Material cardMaterial; // Previously 'cardImage' or 'image'
-    public static bool isGameActive; // Previously 'isGameStarted' or 'startVar'
+    public GameObject cardFace; 
+    private GameObject gameController; 
+    private int cardIdentifier; 
+    public Material cardMaterial; 
+    public static bool isGameActive; 
 
-    // Start is called before the first frame update
+    // Inicialització abans del primer frame
     void Start()
     {
         isGameActive = false;
@@ -19,19 +19,21 @@ public class CardScript : MonoBehaviour
         renderer.material = cardMaterial;
     }
 
-    // Listener for when you click on the card
+    // Listener quan es fa clic sobre la carta
     void OnMouseDown()
     {
-        // Check if the game has started
+        // Si el joc no ha començat, no fa res
         if (!isGameActive) return;
 
         var gameManager = gameController.GetComponent<GameManager>();
 
+        // Si es pot seleccionar una carta
         if (gameManager.CanSelectCard())
         {
             gameManager.SetCardClickAllowed(true);
             AnimatorStateInfo stateInfo = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 
+            // Si la carta està tapada, la revela
             if (stateInfo.IsName("CardFaceDown"))
             {
                 if (gameManager.IsSelectionSlotAvailable())
@@ -44,7 +46,7 @@ public class CardScript : MonoBehaviour
         }
     }
 
-    // Hide the card with animation
+    // Amaga la cara de la carta amb animació
     public void HideCardFace()
     {
         AnimatorStateInfo stateInfo = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
@@ -55,7 +57,7 @@ public class CardScript : MonoBehaviour
         }
     }
 
-    // Show the card with animation
+    // Mostra la cara de la carta amb animació
     public void RevealCardFace()
     {
         AnimatorStateInfo stateInfo = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
@@ -66,22 +68,25 @@ public class CardScript : MonoBehaviour
         }
     }
 
-    /* Setters and Getters */
+    // Obté el Renderer de la cara de la carta (per poder canviar el material)
     public Renderer GetCardFaceRenderer()
     {
         return cardFace.GetComponent<Renderer>();
     }
 
+    // Activa o desactiva el joc (per començar o aturar el joc)
     public void SetGameActive(bool state)
     {
         isGameActive = state;
     }
-
+    
+    // Assigna un identificador a la carta
     public void SetCardIdentifier(double idValue)
     {
         cardIdentifier = (int)idValue;
     }
 
+    // Obté l'identificador de la carta
     public int GetCardIdentifier()
     {
         return cardIdentifier;

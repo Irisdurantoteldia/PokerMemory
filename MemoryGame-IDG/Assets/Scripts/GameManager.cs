@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Set up listeners for buttons
+        // Configura els botons per començar i reiniciar el joc
         if (startButton != null)
         {
             startButton.onClick.AddListener(OnStartButtonClicked);
@@ -45,12 +45,12 @@ public class GameManager : MonoBehaviour
             resetButton.onClick.AddListener(FinishScene);  
         }
 
-        // Initialize UI and variables
+        // Inicialitza la UI amb valors per defecte
         titleText.text = "MEM♦RY G♠ME";
         attemptsCount = 0;
         attemptsText.text = "♠ttempts: " + attemptsCount;
 
-        // Load the best time from PlayerPrefs
+        // Carrega el millor temps guardat en PlayerPrefs
         int bestTime = PlayerPrefs.GetInt("BestScore", int.MaxValue);
         if (bestTime == int.MaxValue)
         {
@@ -68,24 +68,22 @@ public class GameManager : MonoBehaviour
         cards = GameObject.FindGameObjectsWithTag("CardTag");
         cardChildren = GameObject.FindGameObjectsWithTag("CardTagChild");
 
+        // Reproducció de la música de fons (inicia de manera contínua)
         audioSource.clip = endGameClip;
-        audioSource.loop = true; // Make sure it loops
-        audioSource.Play(); // Start playing the music
-
-        audioSource.loop = true; 
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     void Update()
     {
-        
-        // Timer for the game
+        // Compta el temps mentre el joc està actiu
         if (isGameStarted)
         {
             totalTime += Time.deltaTime;
             timeText.text = "Time: " + (int)totalTime;
         }
 
-        // Cooldown for clicking
+        // Controla el temps de refresc entre clics
         if (clickAllowed)
         {
             clickCooldown += Time.deltaTime;
@@ -96,7 +94,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Check if there are two selected cards
+        // Comprova les dues cartes seleccionades per veure si coincideixen
         if (selectedCards[0] != null && selectedCards[1] != null)
         {
             AnimatorStateInfo stateInfo0 = selectedCards[0].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
@@ -107,10 +105,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // If 8 pairs have been matched, the game ends
+        // Si s'han emparellat totes les cartes (8 parelles), finalitza el joc
         if (matchedCardsCount == 8)
         {
-            // Check if the current time is a new best time
             int bestTime = PlayerPrefs.GetInt("BestScore", int.MaxValue);
             if (totalTime < bestTime)
             {
@@ -120,6 +117,7 @@ public class GameManager : MonoBehaviour
                 titleText.color = Color.yellow;
             }
 
+            // Espera uns segons abans de reiniciar el joc
             isGameStarted = false;
             matchedCardsCount += 1;
             Invoke("ResetGame", 5);
@@ -128,6 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void OnCardSelected(GameObject selectedCard)
     {
+        // Assigna la carta seleccionada al primer o segon espai (segons si ja hi ha una carta seleccionada)
         if (selectedCards[0] == null && selectedCards[1] == null)
         {
             selectedCards[0] = selectedCard;
@@ -140,10 +139,12 @@ public class GameManager : MonoBehaviour
 
     public void CheckCardIdentifiers()
     {
+        // Comprova si les cartes seleccionades coincideixen (identificador)
         if (selectedCards[0] != null && selectedCards[1] != null)
         {
             if (selectedCards[0].GetComponent<CardScript>().GetCardIdentifier() != selectedCards[1].GetComponent<CardScript>().GetCardIdentifier())
             {
+                // Si no coincideixen, amaga les cartes i incrementa els intents
                 selectedCards[0].GetComponent<CardScript>().HideCardFace();
                 selectedCards[1].GetComponent<CardScript>().HideCardFace();
                 attemptsCount += 1;
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                // Si coincideixen, incrementa les parelles emparellades
                 matchedCardsCount++;
                 audioSource.PlayOneShot(successClip);
                 ResetSelectedCards(12);
@@ -162,11 +164,13 @@ public class GameManager : MonoBehaviour
 
     public bool IsSelectionSlotAvailable()
     {
+        // Comprova si hi ha espai per seleccionar més cartes
         return selectedCards[0] == null || selectedCards[1] == null;
     }
 
     public void ResetSelectedCards(int num)
     {
+        // Reseteja la selecció de cartes (pot fer-se individualment o conjuntament)
         if (num == 0)
         {
             selectedCards[0] = null;
@@ -184,6 +188,7 @@ public class GameManager : MonoBehaviour
 
     void Shuffle(GameObject[] array)
     {
+        // Barreja les cartes de manera aleatòria (algorisme de Fisher-Yates)
         int n = array.Length;
         for (int i = 0; i < n; i++)
         {
@@ -196,6 +201,7 @@ public class GameManager : MonoBehaviour
 
     void OnStartButtonClicked()
     {
+        // Inicia el joc i reinicia la música de fons
         audioSource.Stop();
         audioSource.clip = backgroundMusic;  
         audioSource.Play();
@@ -207,8 +213,8 @@ public class GameManager : MonoBehaviour
         attemptsCount = 0;
         attemptsText.text = "♠ttempts: " + attemptsCount;
 
+        // Desactiva el panell principal i configura les cartes
         mainPanel.SetActive(false);
-
         foreach (GameObject card in cardChildren)
         {
             card.GetComponent<CardScript>().SetCardIdentifier(cardIdentifierValue);
@@ -217,8 +223,10 @@ public class GameManager : MonoBehaviour
             card.GetComponent<CardScript>().GetCardFaceRenderer().material = loadedMaterial;
         }
 
+        // Barreja les cartes
         Shuffle(cards);
 
+        // Col·loca les cartes a la vista
         int i = 0;
         for (int x = 0; x < 4; x++)
         {
@@ -233,34 +241,34 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        // Reposiciona els valors i mostra el panell final després de guanyar
         audioSource.Stop();
         audioSource.PlayOneShot(endGameClip);
 
-        // Resetting game variables and UI
         matchedCardsCount = 0;
         totalTime = 0;
         timeText.text = "Time: " + 0;
         attemptsCount = 0;
         attemptsText.text = "♠ttempts: " + attemptsCount;
         titleText.text = "MEM♦RY G♠ME";
-        
-        // Handle game panel visibility
+
+        // Activa el panell final
         mainPanel.SetActive(false);
         endGamePanel.SetActive(true);
 
-        // Reset the selected cards
+        // Reseteja les cartes seleccionades
         selectedCards[0] = null;
         selectedCards[1] = null;
     }
 
-    // Finish the scene by reloading it
+    // Reinicia la escena del joc
     void FinishScene()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
 
-    /* Setters and Getters */
+    /* Setters i Getters */
     public bool CanSelectCard()
     {
         return !clickAllowed;
