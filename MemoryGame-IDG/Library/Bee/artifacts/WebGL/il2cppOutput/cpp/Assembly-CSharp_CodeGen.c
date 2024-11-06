@@ -29,6 +29,7 @@ extern void GameManager_IsSelectionSlotAvailable_mEA6DEA7A325B01F75CADF546BEFF67
 extern void GameManager_ResetSelectedCards_mBBB3C9AD90903AD7F0EA383BA6AC279E5535B4AE (void);
 extern void GameManager_Shuffle_m55105DC6AF19E75B6078721724896E14C15E6387 (void);
 extern void GameManager_OnStartButtonClicked_mDE0280CA20D956C0E8EF81F444D2C5209E8E04D7 (void);
+extern void GameManager_StartGameAfterLoading_m84AAAB3621DC08B392B645BC8AC281382F847FE9 (void);
 extern void GameManager_ResetGame_mAA7635DBAEDF23E8D37A64870D9D66D0A695D20C (void);
 extern void GameManager_FinishScene_m5E5883BCA8C0B07C31F0AEF320FCEC577B7070D3 (void);
 extern void GameManager_CanSelectCard_mE06B01D74882E357F7506880F9D352D6EC2BBC7A (void);
@@ -36,7 +37,7 @@ extern void GameManager_SetCardClickAllowed_m239556B550146C342CEDFD84A6BB3728048
 extern void GameManager__ctor_mF453CED520617BFB65C52405A964E06CF17DB368 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[24] = 
+static Il2CppMethodPointer s_methodPointers[25] = 
 {
 	CardScript_Start_m975D7E1EA17EB5FCC667A375830B0725C32719D3,
 	CardScript_OnMouseDown_mEAF921F3159F083AF4DFBCDFB8171A6425DBD004,
@@ -55,6 +56,7 @@ static Il2CppMethodPointer s_methodPointers[24] =
 	GameManager_ResetSelectedCards_mBBB3C9AD90903AD7F0EA383BA6AC279E5535B4AE,
 	GameManager_Shuffle_m55105DC6AF19E75B6078721724896E14C15E6387,
 	GameManager_OnStartButtonClicked_mDE0280CA20D956C0E8EF81F444D2C5209E8E04D7,
+	GameManager_StartGameAfterLoading_m84AAAB3621DC08B392B645BC8AC281382F847FE9,
 	GameManager_ResetGame_mAA7635DBAEDF23E8D37A64870D9D66D0A695D20C,
 	GameManager_FinishScene_m5E5883BCA8C0B07C31F0AEF320FCEC577B7070D3,
 	GameManager_CanSelectCard_mE06B01D74882E357F7506880F9D352D6EC2BBC7A,
@@ -63,38 +65,39 @@ static Il2CppMethodPointer s_methodPointers[24] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[24] = 
+static const int32_t s_InvokerIndices[25] = 
 {
-	4430,
-	4430,
-	4430,
-	4430,
-	4332,
-	3490,
-	3514,
-	4305,
-	4430,
-	4430,
-	4430,
-	3567,
-	4430,
-	4257,
-	3542,
-	3567,
-	4430,
-	4430,
-	4430,
-	4257,
-	3490,
-	4430,
-	6375,
-	4430,
+	4447,
+	4447,
+	4447,
+	4447,
+	4349,
+	3504,
+	3529,
+	4322,
+	4447,
+	4447,
+	4447,
+	3582,
+	4447,
+	4273,
+	3557,
+	3582,
+	4447,
+	4447,
+	4447,
+	4447,
+	4273,
+	3504,
+	4447,
+	6411,
+	4447,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	24,
+	25,
 	s_methodPointers,
 	0,
 	NULL,

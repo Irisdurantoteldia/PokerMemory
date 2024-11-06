@@ -117,6 +117,7 @@ UnityEngine.Component::GetComponentsForListInternal
 UnityEngine.Component::get_gameObject
 UnityEngine.Component::get_transform
 UnityEngine.ComputeShader::FindKernel
+UnityEngine.ContactFilter2D::CheckConsistency_Injected
 UnityEngine.ContactPair::ExtractContactsArray_Injected
 UnityEngine.Coroutine::ReleaseCoroutine
 UnityEngine.Cubemap::Internal_CreateImpl
@@ -413,9 +414,15 @@ UnityEngine.Physics::get_defaultPhysicsScene_Injected
 UnityEngine.Physics::GetColliderByInstanceID
 UnityEngine.Physics::GetBodyByInstanceID
 UnityEngine.Physics::Internal_RaycastAll_Injected
+UnityEngine.Physics2D::get_queriesHitTriggers
+UnityEngine.Physics2D::GetRayIntersectionAll_Internal_Injected
 UnityEngine.PhysicsScene::Internal_RaycastTest_Injected
 UnityEngine.PhysicsScene::Internal_Raycast_Injected
 UnityEngine.PhysicsScene::Internal_RaycastNonAlloc_Injected
+UnityEngine.PhysicsScene2D::GetRayIntersectionArray_Internal_Injected
+UnityEngine.PhysicsScene2D::RaycastArray_Internal_Injected
+UnityEngine.PhysicsScene2D::RaycastList_Internal_Injected
+UnityEngine.PhysicsScene2D::Raycast_Internal_Injected
 UnityEngine.Playables.PlayableHandle::IsValid_Injected
 UnityEngine.Playables.PlayableHandle::GetPlayableType_Injected
 UnityEngine.PlayerConnectionInternal::IsConnected

@@ -26,11 +26,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI attemptsText;
     public GameObject mainPanel;
     public GameObject endGamePanel;
+    public GameObject loadingPanel;
 
     public AudioClip successClip;
     public AudioClip failureClip;
     public AudioClip backgroundMusic;  
     public AudioClip endGameClip;
+    public AudioClip click;
+    public AudioClip loading;
+    public AudioClip jackpot;
     public AudioSource audioSource;
 
     void Start()
@@ -126,6 +130,9 @@ public class GameManager : MonoBehaviour
 
     public void OnCardSelected(GameObject selectedCard)
     {
+        // Reprodueix el so de clic quan es selecciona una carta
+        audioSource.PlayOneShot(click, 0.2f);
+
         // Assigna la carta seleccionada al primer o segon espai (segons si ja hi ha una carta seleccionada)
         if (selectedCards[0] == null && selectedCards[1] == null)
         {
@@ -201,11 +208,34 @@ public class GameManager : MonoBehaviour
 
     void OnStartButtonClicked()
     {
-        // Inicia el joc i reinicia la música de fons
+        // Mostra el panell de càrrega i reprodueix la música de càrrega
+        loadingPanel.SetActive(true);
+        audioSource.Stop();
+        audioSource.clip = loading;
+        audioSource.Play();
+
+        // Amaga la interfície principal mentre el panell de càrrega està actiu
+        mainPanel.SetActive(false);
+
+        // Registra l'event per ocultar el panell de càrrega després de 10 segons
+        Invoke("StartGameAfterLoading", 10f);
+    }
+
+    void StartGameAfterLoading()
+    {
+        // Amaga el panell de càrrega després de 10 segons
+        loadingPanel.SetActive(false);
+
+        // Inicia la música de fons del joc
         audioSource.Stop();
         audioSource.clip = backgroundMusic;  
         audioSource.Play();
-        audioSource.loop = true; 
+        audioSource.loop = true;
+
+        // Inicia els elements del joc
+        bestTimeText.gameObject.SetActive(true);
+        attemptsText.gameObject.SetActive(true);
+        timeText.gameObject.SetActive(true);
         cardChildren[0].GetComponent<CardScript>().SetGameActive(true);
         startButton.gameObject.SetActive(false);
         isGameStarted = true;
@@ -213,8 +243,7 @@ public class GameManager : MonoBehaviour
         attemptsCount = 0;
         attemptsText.text = "♠ttempts: " + attemptsCount;
 
-        // Desactiva el panell principal i configura les cartes
-        mainPanel.SetActive(false);
+        // Configura les cartes
         foreach (GameObject card in cardChildren)
         {
             card.GetComponent<CardScript>().SetCardIdentifier(cardIdentifierValue);
@@ -232,7 +261,7 @@ public class GameManager : MonoBehaviour
         {
             for (int y = 0; y < 4; y++)
             {
-                Vector3 position = new Vector3((float)((x * 2) - 2), (float)-1.3, (y * 2) - 2);
+                Vector3 position = new Vector3((float)((x * 2)), (float)0.1, (y * 2) - 3);
                 cards[i].transform.position = position;
                 i++;
             }
@@ -243,7 +272,7 @@ public class GameManager : MonoBehaviour
     {
         // Reposiciona els valors i mostra el panell final després de guanyar
         audioSource.Stop();
-        audioSource.PlayOneShot(endGameClip);
+        audioSource.PlayOneShot(jackpot);
 
         matchedCardsCount = 0;
         totalTime = 0;

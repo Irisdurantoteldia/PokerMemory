@@ -93,6 +93,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
@@ -144,6 +146,8 @@ ScriptsOnlyBuild:
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 136
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -462,7 +466,7 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionExit2DMessageListener
   - hash:
       serializedVersion: 2
-      Hash: ade095314b7f4c7548c88403b418fd49
+      Hash: bebf6abcc9b1067dc2d086bf9364ee5e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -997,4 +1001,4 @@ ScriptsOnlyBuild:
   platform: 20
   scenePathNames:
   - Assets/Scenes/GameScene.unity
-  playerPath: C:/Users/RyuDu/Documents/Jocs/PokerMemoryGame
+  playerPath: C:/Users/RyuDu/Documents/Jocs/PokerDef
